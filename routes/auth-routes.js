@@ -1,6 +1,17 @@
 const router = require("express").Router();
-const User = require("../models/User.model");
+
 const bcrypt = require("bcryptjs");
+const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
+const passport = require('passport');
+
+//Models, Middlewares & Helpers
+const User = require("../models/User.model");
+const auth = require('../../middleware/auth')
+
+
+
+
 router.post("/signup", async (req, res) => {
   const { username, password } = req.body;
   if (username === "" || password === "") {

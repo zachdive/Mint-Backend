@@ -38,6 +38,8 @@ const farmerSchema = new Schema({
     required: true
   },
 
+
+
   logoUrl: String,
 
   products: [
@@ -52,6 +54,12 @@ const farmerSchema = new Schema({
   isFarmer: {
     type: Boolean,
     default: true
+  },
+
+  status: {
+    type: String,
+    default: 'Waiting Approval',
+    enum: ['Waiting Approval', 'Rejected', 'Approved']
   },
 
 });

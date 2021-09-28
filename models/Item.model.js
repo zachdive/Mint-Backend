@@ -8,7 +8,6 @@ const itemSchema = new mongoose.Schema({
     },
     imageUrl: String,
     quantity_available: Number,
-    stock: Boolean,
     price: Number,
     expire_in: String,
     description: String,

@@ -1,12 +1,38 @@
 const { Schema, model } = require("mongoose");
 
-// TODO: Please make sure you edit the user model to whatever makes sense in this case
+
 const userSchema = new Schema({
   username: {
     type: String,
-    // unique: true -> Ideally, should be unique, but its up to you
+    unique: true,
+    required: true
   },
-  password: String,
+
+  password: {
+    type: String,
+    required: true
+  },
+
+  phoneNumber: {
+    type: Number,
+    required:true
+  },
+
+  email: {
+    type: String,
+    required: true
+  },
+
+  imageUrl: String,
+
+  
+  //Location: Google Maps API? (we may have to make a coord model)
+
+  isFarmer: {
+    type: Boolean,
+    default: false
+  },
+
 });
 
 const User = model("User", userSchema);

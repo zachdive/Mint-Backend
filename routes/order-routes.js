@@ -1,9 +1,9 @@
 const router = require("express").Router();
 const Order = require("../models/Order.model");
 
-router.get("/my-order", (req, res) => {
-    try {
-        res.status(200).json();
+router.get("/orders", async (req, res) => {
+    try {const orders = await Order.find();
+        res.status(200).json(orders);
     } catch(e) {
         res.status(500).json({message: e.message});
     }

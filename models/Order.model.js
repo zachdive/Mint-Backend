@@ -9,7 +9,7 @@ const orderSchema = new Schema (
         cart: [
             {
             type: Schema.Types.ObjectId,
-            ref: "Item"
+            ref: "Cart"
             }
         ],
         schedule_delivery: {
@@ -19,10 +19,19 @@ const orderSchema = new Schema (
                 enum: ["Morning(8-12h)", "Noon (12-16h)", "Evening (16-20h)"]
             }
         },
-        delivery_fee: {
-            type: String,
-            default: "3,95"
+        total: {
+            type: Number,
+            default: 0,
         },
+        created: {
+            type: Date,
+            default: Date.now
+        },
+        status: {
+            type: String,
+            default: 'Not processed',
+            enum: ['Not processed', 'Processing', 'Delivering','Delivered', 'Cancelled']
+        }
     },
     {
     timestamps: true,

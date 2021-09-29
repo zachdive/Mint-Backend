@@ -1,9 +1,8 @@
 const router = require("express").Router();
-
 const bcrypt = require("bcryptjs");
-const jwt = require('jsonwebtoken');
-const crypto = require('crypto');
-const passport = require('passport');
+// const jwt = require('jsonwebtoken');
+// const crypto = require('crypto');
+// const passport = require('passport');
 
 //Models, Middlewares & Helpers
 const User = require("../models/User.model");
@@ -14,11 +13,11 @@ const auth = require('../middleware/auth')
 
 router.post("/signup", async (req, res) => {
   const { firstName, lastName,  password, phoneNumber, email } = req.body;
-  if (username === "" || password === "") {
-    res.status(400).json({ errorMessage: "Fill username and password" });
+  if (email === "" || password === "") {
+    res.status(400).json({ errorMessage: "Fill email and password" });
     return;
   }
-  const user = await User.findOne({ username });
+  const user = await User.findOne({ email });
   if (user !== null) {
     //found the user, it already exists
     res.status(400).json({ errorMessage: "User already exists" });

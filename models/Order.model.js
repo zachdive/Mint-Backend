@@ -2,16 +2,10 @@ const { Schema, model } = require ("mongoose");
 
 const orderSchema = new Schema (
     {
-        user: {
+        cart:{
             type: mongoose.Schema.ObjectId,
-            ref: "User"
-        },
-        cart: [
-            {
-            type: Schema.Types.ObjectId,
             ref: "Cart"
-            }
-        ],
+            },
         schedule_delivery: {
             date: Date,
             time: {

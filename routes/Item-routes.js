@@ -13,14 +13,14 @@ router.get("/items", async (req, res) => {
 });
 
 router.post("/items", async (req, res) => {
-    const {name, category, imageUrl, quantity_available, stock, price, expire_in, description} = req.body;
+    const {name, category, imageUrl, quantity_available, price, expire_in, description} = req.body;
 
     if(!name || !category || !imageUrl || !quantity_available || !price || !expire_in || !description){
         res.status(400).message({message: "missing fields"});
         return;
     }
     try {
-        const response = await Item.create({name, category, imageUrl, quantity_available, stock, price, expire_in, description});
+        const response = await Item.create({name, category, imageUrl, quantity_available, price, expire_in, description});
         res.status(200).json(response);
     } catch(e) {
         res.status(500).json({message: e.message});
@@ -47,7 +47,7 @@ router.get("/items/:id", async (req, res) => {
 });
 
 router.put("/items/:id", async (req, res) => {
-    const {name, category, imageUrl, quantity_available, stock, price, expire_in, description} = req.body;
+    const {name, category, imageUrl, quantity_available, price, expire_in, description} = req.body;
     if(!name || !category || !imageUrl || !quantity_available || !price || !expire_in || !description){
         res.status(400).message({message: "missing fields"});
         return;
@@ -58,7 +58,6 @@ router.put("/items/:id", async (req, res) => {
             category, 
             imageUrl, 
             quantity_available, 
-            stock, 
             price, 
             expire_in, 
             description

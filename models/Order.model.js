@@ -2,10 +2,7 @@ const { Schema, model } = require ("mongoose");
 
 const orderSchema = new Schema (
     {
-        user: {
-            type: mongoose.Schema.ObjectId,
-            ref: "User"
-        },
+       
         cart: 
             {
             type: Schema.Types.ObjectId,

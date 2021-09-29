@@ -13,7 +13,7 @@ const auth = require('../middleware/auth')
 
 
 router.post("/signup", async (req, res) => {
-  const { username, password } = req.body;
+  const { firstName, lastName,  password, phoneNumber, email } = req.body;
   if (username === "" || password === "") {
     res.status(400).json({ errorMessage: "Fill username and password" });
     return;
@@ -28,18 +28,22 @@ router.post("/signup", async (req, res) => {
   const salt = bcrypt.genSaltSync(saltRounds);
   const hashedPassword = bcrypt.hashSync(password, salt);
   const newUser = await User.create({
-    username,
+    firstName,
+    lastName,
     password: hashedPassword,
+    phoneNumber,
+    email
   });
   res.status(200).json(newUser);
 });
+
 router.post("/login", async (req, res) => {
-  const { username, password } = req.body;
-  if (username === "" || password === "") {
-    res.status(400).json({ errorMessage: "Fill username and password" });
+  const { email, password } = req.body;
+  if (email === "" || password === "") {
+    res.status(400).json({ errorMessage: "Fill email and password" });
     return;
   }
-  const user = await User.findOne({ username });
+  const user = await User.findOne({ email });
   if (user === null) {
     res.status(401).json({ errorMessage: "Invalid login" });
     return;

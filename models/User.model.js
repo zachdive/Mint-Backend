@@ -44,7 +44,20 @@ const userSchema = new Schema({
   facebookId: {
     type: String
   },
- 
+
+  orders: [
+    {
+    type: Schema.Types.ObjectId,
+    ref: "Order"
+    }
+],
+
+cart: 
+{
+type: Schema.Types.ObjectId,
+ref: "Cart"
+}
+,
 
   imageUrl: String,
 

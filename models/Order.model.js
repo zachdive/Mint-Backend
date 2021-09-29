@@ -6,12 +6,12 @@ const orderSchema = new Schema (
             type: mongoose.Schema.ObjectId,
             ref: "User"
         },
-        cart: [
+        cart: 
             {
             type: Schema.Types.ObjectId,
             ref: "Cart"
             }
-        ],
+        ,
         schedule_delivery: {
             date: Date,
             time: {

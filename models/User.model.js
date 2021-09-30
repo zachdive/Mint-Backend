@@ -26,16 +26,16 @@ const userSchema = new Schema({
   email: {
     type: String,
     unique: true,
-    required: () => {
-      return this.provider !== 'email' ? false : true;
-    }
+    // required: () => {
+    //   return this.provider !== 'email' ? false : true;
+    // }
   },
 
-  provider: {
-    type: String,
-    required: true,
-    default: 'email'
-  },
+  // provider: {
+  //   type: String,
+  //   required: true,
+  //   default: 'email'
+  // },
 
   googleId: {
     type: String

@@ -25,6 +25,7 @@ const userSchema = new Schema({
 
   email: {
     type: String,
+    unique: true,
     required: () => {
       return this.provider !== 'email' ? false : true;
     }
@@ -42,7 +43,20 @@ const userSchema = new Schema({
   // facebookId: {
   //   type: String
   // },
- 
+
+  orders: [
+    {
+    type: Schema.Types.ObjectId,
+    ref: "Order"
+    }
+],
+
+cart: 
+{
+type: Schema.Types.ObjectId,
+ref: "Cart"
+}
+,
 
   imageUrl: String,
 

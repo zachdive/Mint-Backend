@@ -1,9 +1,9 @@
 const router = require("express").Router();
 const Item = require("../models/Item.model");
-// const fileUpload = require('../config/cloudinary');
+const fileUpload = require('../config/cloudinary');
 
 
-router.get("/items", async (req, res) => {
+router.get("/products", async (req, res) => {
     try{
         const items = await Item.find();
         res.status(200).json(items);
@@ -12,11 +12,11 @@ router.get("/items", async (req, res) => {
     }
 });
 
-router.post("/items", async (req, res) => {
+router.post("/products", async (req, res) => {
     const {name, category, imageUrl, quantity_available, price, expire_in, description} = req.body;
 
-    if(!name || !category || !imageUrl || !quantity_available || !price || !expire_in || !description){
-        res.status(400).message({message: "missing fields"});
+    if(!name || !category || !quantity_available || !price || !expire_in || !description){
+        res.status(400).json({message: "missing fields"});
         return;
     }
     try {
@@ -27,7 +27,7 @@ router.post("/items", async (req, res) => {
     }
 });
 
-router.delete("/items/:id", async (req, res) => {
+router.delete("/products/:id", async (req, res) => {
     try {
         await Item.findByIdAndDelete(req.params.id);
         res.status(200).json({message: `Item with id ${req.params.id} was deleted.`});
@@ -36,7 +36,7 @@ router.delete("/items/:id", async (req, res) => {
     }
 });
 
-router.get("/items/:id", async (req, res) => {
+router.get("/products/:id", async (req, res) => {
     try {
         const item = await Item.findById(req.params.id);
         res.status(200).json(item);
@@ -46,9 +46,9 @@ router.get("/items/:id", async (req, res) => {
 
 });
 
-router.put("/items/:id", async (req, res) => {
+router.put("/products/:id", async (req, res) => {
     const {name, category, imageUrl, quantity_available, price, expire_in, description} = req.body;
-    if(!name || !category || !imageUrl || !quantity_available || !price || !expire_in || !description){
+    if(!name || !category || !quantity_available || !price || !expire_in || !description){
         res.status(400).message({message: "missing fields"});
         return;
     }
@@ -70,12 +70,12 @@ router.put("/items/:id", async (req, res) => {
     }
 });
 
-// router.post("/upload", fileUpload.single("file"), (req, res) => {
-//     try {
-//         res.status(200).json({fileUrl: req.file.path});
-//     } catch (e) {
-//         res.status(500).json({message: e.message});
-//     }
-// });
+router.post("/upload", fileUpload.single("file"), (req, res) => {
+    try {
+        res.status(200).json({fileUrl: req.file.path});
+    } catch (e) {
+        res.status(500).json({message: e.message});
+    }
+});
 
 module.exports = router;

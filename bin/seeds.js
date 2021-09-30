@@ -62,6 +62,37 @@ const farms = [
       status:'Approved',
       
     },
+    {  farmName: "Quinta da fornalha",
+    
+        bio: "Quinta da fornalha is a farm who's committed to the sustainable production of healthy food in accordance with ethical principles. The farm is certified organic since 2004 and is recently in the process of converting to permaculture.",
+    
+        zipcode: '2070, Cartaxo' ,
+        taxpayerNumber:"12345" ,
+    
+     
+    
+    
+      logoUrl: String,
+    
+      products: [
+        {   name: "Quinta da fornalha", 
+            category:"Beverages",
+            imageUrl: 'https://res.cloudinary.com/adegga/images/v1606355593/adegga.com/vinho-qom-serra-oca-moscatel-graudo/vinho-qom-serra-oca-moscatel-graudo.jpg',
+            available: Yes,
+            quantity_available: 50,
+            price: "€18",
+            expire_in: "2050",
+            description: "White",
+            
+        },
+      ], 
+    
+      
+    
+    
+      status:'Approved',
+      
+    },
 
 
     

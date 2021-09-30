@@ -26,9 +26,9 @@ const userSchema = new Schema({
   email: {
     type: String,
     unique: true,
-    required: () => {
-      return this.provider !== 'email' ? false : true;
-    }
+    // required: () => {
+    //   return this.provider !== 'email' ? false : true;
+    // }
   },
 
   // provider: {
@@ -49,14 +49,14 @@ const userSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Order"
     }
-],
-
-cart: 
-{
-type: Schema.Types.ObjectId,
-ref: "Cart"
-}
-,
+  ],
+  
+  cart: 
+  {
+  type: Schema.Types.ObjectId,
+  ref: "Cart"
+  }
+  ,
 
   imageUrl: String,
 

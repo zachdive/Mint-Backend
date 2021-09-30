@@ -2,16 +2,13 @@ const { Schema, model } = require("mongoose");
 
 
 const farmerSchema = new Schema({
-  username: {
+
+
+  farmName:  {
     type: String,
-    unique: true,
     required: true
   },
 
-  password: {
-    type: String,
-    required: true
-  },
 
   bio: String,
 
@@ -28,16 +25,7 @@ const farmerSchema = new Schema({
     required: true
   },
 
-  phoneNumber: {
-    type: Number,
-    required:true
-  },
-
-  email: {
-    type: String,
-    required: true
-  },
-
+ 
 
 
   logoUrl: String,
@@ -51,10 +39,6 @@ const farmerSchema = new Schema({
 
   
 
-  isFarmer: {
-    type: Boolean,
-    default: true
-  },
 
   status: {
     type: String,

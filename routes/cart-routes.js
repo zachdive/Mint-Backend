@@ -1,17 +1,17 @@
 const router = require("express").Router();
 const Cart = require("../models/Cart.model");
 
-router.get("/carts", async (req,res) => {
+router.get("/cart", async (req,res) => {
     try {
         console.log("request", req.session.currentUser);
-        const carts = await Cart.find();
-        res.status(200).json(carts);
+        const cart = await Cart.find();
+        res.status(200).json(cart);
     } catch(e) {
         res.status(500).json({message: e.message});
     }
 });
 
-router.post("/carts", async (req, res) => {
+router.post("/cart", async (req, res) => {
     const {products, user, totalPrice} = req.body;
 
     if(!products || !user || !totalPrice) {
@@ -27,7 +27,7 @@ router.post("/carts", async (req, res) => {
     }
 });
 
-router.delete("/carts/:id", async (req, res) => {
+router.delete("/cart/:id", async (req, res) => {
     try{
         await Cart.findByIdAndRemove(req.params.id);
         res
@@ -38,7 +38,7 @@ router.delete("/carts/:id", async (req, res) => {
     }
 });
 
-router.get("/carts/:id", async (req,res) => {
+router.get("/cart/:id", async (req,res) => {
     try {
         const response = await Cart.findById(req.params.id);
         res
@@ -49,7 +49,7 @@ router.get("/carts/:id", async (req,res) => {
     }
 });
 
-router.put("/carts/:id", async (req,res) => {
+router.put("/cart/:id", async (req,res) => {
     const {products, totalPrice} = req.body;
 
     if(!products || !totalPrice) {

@@ -2,7 +2,7 @@ const { Schema, model } = require ("mongoose");
 
 const CartSchema = new Schema(
     {        
-        products: {
+        products: [{
             product:{
                 type: Schema.Types.ObjectId,
                 ref:"Item"
@@ -16,7 +16,7 @@ const CartSchema = new Schema(
                 type: Number,
                 default: 0
             },
-        },
+        },],
         created: {
             type: Date,
             default: Date.now

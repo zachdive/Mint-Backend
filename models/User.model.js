@@ -37,12 +37,12 @@ const userSchema = new Schema({
   //   default: 'email'
   // },
 
-  googleId: {
-    type: String
-  },
-  facebookId: {
-    type: String
-  },
+  // googleId: {
+  //   type: String
+  // },
+  // facebookId: {
+  //   type: String
+  // },
 
   orders: [
     {

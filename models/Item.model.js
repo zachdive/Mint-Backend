@@ -11,6 +11,10 @@ const itemSchema = new mongoose.Schema({
     price: Number,
     expire_in: String,
     description: String,
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    }, 
 });
 
 const Item = mongoose.model("Item", itemSchema);

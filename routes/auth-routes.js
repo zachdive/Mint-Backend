@@ -18,7 +18,7 @@ const { secret, tokenLife } = keys.jwt;
 router.post("/signup", async (req, res) => {
 
   try {
-  const { firstName, lastName,  password, phoneNumber, email } = req.body;
+  const { firstName, lastName,  password, phoneNumber, email, isFarmer } = req.body;
   if (email === "" || password === "") {
     res.status(400).json({ errorMessage: "Fill email and password" });
     return;
@@ -37,7 +37,8 @@ router.post("/signup", async (req, res) => {
     lastName,
     password: hashedPassword,
     phoneNumber,
-    email
+    email,
+    isFarmer,
   });
   
   const token = jwt.sign(payload, secret, { expiresIn: tokenLife });

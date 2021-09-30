@@ -4,13 +4,11 @@ const { Schema, model } = require("mongoose");
 const userSchema = new Schema({
   firstName: {
     type: String,
-    unique: true,
     required: true
   },
 
   lastName: {
     type: String,
-    unique: true,
     required: true
   },
 
@@ -32,18 +30,18 @@ const userSchema = new Schema({
     }
   },
 
-  provider: {
-    type: String,
-    required: true,
-    default: 'email'
-  },
+  // provider: {
+  //   type: String,
+  //   required: true,
+  //   default: 'email'
+  // },
 
-  googleId: {
-    type: String
-  },
-  facebookId: {
-    type: String
-  },
+  // googleId: {
+  //   type: String
+  // },
+  // facebookId: {
+  //   type: String
+  // },
  
 
   imageUrl: String,

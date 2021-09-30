@@ -53,7 +53,7 @@ router.put("/cart/:id", async (req,res) => {
     const {products, totalPrice} = req.body;
 
     if(!products || !totalPrice) {
-        res.status(400).message({message: "missing fields"});
+        res.status(400).json({message: "missing fields"});
         return;
     }
 

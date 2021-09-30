@@ -3,7 +3,7 @@ const { Schema, model } = require ("mongoose");
 const CartSchema = new Schema(
     {        
         products: [{
-            product:{
+            item:{
                 type: Schema.Types.ObjectId,
                 ref:"Item"
             },            
@@ -17,10 +17,6 @@ const CartSchema = new Schema(
                 default: 0
             },
         }],
-        created: {
-            type: Date,
-            default: Date.now
-        },
         deliveryFee: {
             type: Number,
             default: 3.95
@@ -34,7 +30,7 @@ const CartSchema = new Schema(
             default: 'Not processed',
             enum: ['Not processed', 'Processed'],
         },
-    }
+    }, {timestamps: true}
 )
 
 const Cart = model("Cart", CartSchema);

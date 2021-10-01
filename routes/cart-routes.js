@@ -15,11 +15,11 @@ router.get("/cart", async (req, res) => {
 
 router.post("/cart", async (req, res) => {
   try {
-    const { itemId, purchasePrice, quantity } = req.body;
+    const { itemId, quantity, purchasePrice } = req.body;
     const user = await User.findById(req.session.currentUser._id);
     const item = await Item.findById(itemId);
-    console.log("user",user);
-    console.log("item",item);
+    console.log("user", user);
+    console.log("item", item);
     if (!itemId) {
       res.status(400).message({ message: "missing fields" });
       return;
@@ -37,6 +37,10 @@ router.post("/cart", async (req, res) => {
             purchasePrice,
           },
         ],
+      });
+
+      await User.findByIdAndUpdate(req.session.currentUser._id, {
+        cart: response,
       });
     }
 
@@ -59,28 +63,28 @@ router.delete("/cart/:id", async (req, res) => {
 
 router.get("/cart/:id", async (req, res) => {
   try {
-    const response = await Cart.findById(req.params.id);
-    res.status(200).json(response);
+    const user = await User.findById(req.session.currentUser._id).populate("cart");
+    const userCart = user.cart.populate("products");
+    res.status(200).json(userCart);
   } catch (e) {
     res.status(500).json({ message: e.message });
   }
 });
 
 router.put("/cart/:id", async (req, res) => {
-  const { products, totalPrice } = req.body;
-
-  if (!products || !totalPrice) {
-    res.status(400).json({ message: "missing fields" });
-    return;
-  }
-
   try {
+    const { itemId, quantity, purchasePrice } = req.body;
+    const user = await User.findById(req.session.currentUser._id);
+    const item = await Item.findById(itemId);
+    console.log("user", user);
+    console.log("item", item);
+    if (!itemId) {
+      res.status(400).message({ message: "missing fields" });
+      return;
+    }
     const response = await Cart.findByIdAndUpdate(
-      req.params.id,
-      {
-        products,
-        totalPrice,
-      },
+      user.cart._id,
+      { $push: { products: { item, quantity, purchasePrice } } },
       { new: true } //<= responding with new (updated) object
     );
     res.status(200).json(response);

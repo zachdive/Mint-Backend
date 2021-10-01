@@ -40,14 +40,13 @@ router.post("/signup", async (req, res) => {
     email,
     isFarmer,
   });
+
   
-  const token = jwt.sign(payload, secret, { expiresIn: tokenLife });
   
-  res.status(200).json({
-    success: true,
-    token: `Bearer ${token}`,
+  
+  res.status(200).json(
     newUser,
-  });
+  );
 
 } catch (error) {
   res.status(400).json({
@@ -92,10 +91,13 @@ router.get("/isloggedin", (req, res) => {
     }
 })
 
-
-
+// router.get(
+//   '/google', (req , res)=> {
+//     res.status(200).json({message:"GOOOGLE"})
+//   }
+// );
 router.get(
-  '/google',
+  '/auth/google',
   passport.authenticate('google', {
     session: false,
     scope: ['profile', 'email'],
@@ -105,7 +107,7 @@ router.get(
 );
 
 router.get(
-  '/google/callback',
+  'auth/google/callback',
   passport.authenticate('google', {
     failureRedirect: '/login',
     session: false
@@ -115,62 +117,25 @@ router.get(
       id: req.user.id
     };
 
-    jwt.sign(payload, secret, { expiresIn: tokenLife }, (err, token) => {
-      const jwt = `Bearer ${token}`;
+    // jwt.sign(payload, secret, { expiresIn: tokenLife }, (err, token) => {
+    //   const jwt = `Bearer ${token}`;
 
-      const htmlWithEmbeddedJWT = `
-    <html>
-      <script>
-        // Save JWT to localStorage
-        window.localStorage.setItem('token', '${jwt}');
-        // Redirect browser to root of application
-        window.location.href = '/auth/success';
-      </script>
-    </html>       
-    `;
+    //   const htmlWithEmbeddedJWT = `
+    // <html>
+    //   <script>
+    //     // Save JWT to localStorage
+    //     window.localStorage.setItem('token', '${jwt}');
+    //     // Redirect browser to root of application
+    //     window.location.href = '/auth/success';
+    //   </script>
+    // </html>       
+    // `;
 
-      res.send(htmlWithEmbeddedJWT);
-    });
+    //   res.send(htmlWithEmbeddedJWT);
+    // });
   }
 );
 
-router.get(
-  '/facebook',
-  passport.authenticate('facebook', {
-    session: false,
-    scope: ['public_profile', 'email']
-  })
-);
-
-router.get(
-  '/facebook/callback',
-  passport.authenticate('facebook', {
-    failureRedirect: '/',
-    session: false
-  }),
-  (req, res) => {
-    const payload = {
-      id: req.user.id
-    };
-
-    jwt.sign(payload, secret, { expiresIn: tokenLife }, (err, token) => {
-      const jwt = `Bearer ${token}`;
-
-      const htmlWithEmbeddedJWT = `
-    <html>
-      <script>
-        // Save JWT to localStorage
-        window.localStorage.setItem('token', '${jwt}');
-        // Redirect browser to root of application
-        window.location.href = '/auth/success';
-      </script>
-    </html>       
-    `;
-
-      res.send(htmlWithEmbeddedJWT);
-    });
-  }
-);
 
 
 module.exports = router;

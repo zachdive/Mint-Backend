@@ -40,7 +40,12 @@ router.post("/signup", async (req, res) => {
     email,
     isFarmer,
   });
+
   
+  // const registeredUser = await newUser.save();
+  // const payload = {
+  //   id: registeredUser.id
+  // };
   const token = jwt.sign(payload, secret, { expiresIn: tokenLife });
   
   res.status(200).json({
@@ -95,7 +100,7 @@ router.get("/isloggedin", (req, res) => {
 
 
 router.get(
-  '/google',
+  'auth/google',
   passport.authenticate('google', {
     session: false,
     scope: ['profile', 'email'],
@@ -105,7 +110,7 @@ router.get(
 );
 
 router.get(
-  '/google/callback',
+  'auth/google/callback',
   passport.authenticate('google', {
     failureRedirect: '/login',
     session: false

@@ -1,5 +1,5 @@
 const passport = require('passport');
-const JwtStrategy = require('passport-jwt').Strategy;
+const JwtStrategy = require('passport-jwt').Strategy; //Local
 const GoogleStrategy = require('passport-google-oauth2').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 

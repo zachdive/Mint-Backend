@@ -61,11 +61,18 @@ router.delete("/cart/:id", async (req, res) => {
   }
 });
 
-router.get("/cart/:id", async (req, res) => {
+router.get("/usercart", async (req, res) => {
   try {
-    const user = await User.findById(req.session.currentUser._id).populate("cart");
-    const userCart = user.cart.populate("products");
-    res.status(200).json(userCart);
+
+    const user = await User.findById(req.session.currentUser._id).populate({ 
+      path: 'cart',
+      populate: {
+        path: 'products.item',
+        model: 'Item'
+      } 
+   })
+    //const userCart = user.cart.populate("products");
+    res.status(200).json(user);
   } catch (e) {
     res.status(500).json({ message: e.message });
   }

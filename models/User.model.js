@@ -53,8 +53,12 @@ const userSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Cart",
   },
-  imageUrl: String,
 
+  imageUrl: {
+    type:String,
+    default: 'https://images.pexels.com/photos/7262909/pexels-photo-7262909.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
+  },
+  
   //Location: Google Maps API? (we may have to make a coord model)
 
   isFarmer: {

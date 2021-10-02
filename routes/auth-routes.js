@@ -79,10 +79,12 @@ router.post("/login", async (req, res) => {
     res.status(401).json({ errorMessage: "Invalid login" });
   }
 });
+
 router.post("/logout", (req, res) => {
   req.session.destroy();
   res.status(200).json({message: "user logged out"});
 });
+
 router.get("/isloggedin", (req, res) => {
     if(req.session.currentUser) {
         res.status(200).json(req.session.currentUser);
@@ -107,15 +109,12 @@ router.get(
 );
 
 router.get(
-  'auth/google/callback',
-  passport.authenticate('google', {
-    failureRedirect: '/login',
-    session: false
-  }),
-  (req, res) => {
-    const payload = {
-      id: req.user.id
-    };
+  "/auth/google/callback",
+  passport.authenticate("google", {
+    successRedirect: `${process.env.CLIENT_HOSTNAME}/projects`,
+    failureRedirect: `${process.env.CLIENT_HOSTNAME}/login`,
+  })
+);
 
     // jwt.sign(payload, secret, { expiresIn: tokenLife }, (err, token) => {
     //   const jwt = `Bearer ${token}`;
@@ -133,8 +132,8 @@ router.get(
 
     //   res.send(htmlWithEmbeddedJWT);
     // });
-  }
-);
+//   }
+// );
 
 
 

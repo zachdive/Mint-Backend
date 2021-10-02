@@ -37,9 +37,9 @@ passport.use(
 passport.use(
   new GoogleStrategy(
     {
-      clientID: google.clientID,
-      clientSecret: google.clientSecret,
-      callbackURL: `${serverURL}/${apiURL}/${google.callbackURL}`
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: "/auth/google/callback",
     },
     (accessToken, refreshToken, profile, done) => {
       User.findOne({ email: profile.email })

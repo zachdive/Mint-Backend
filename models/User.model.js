@@ -1,26 +1,24 @@
 const { Schema, model } = require("mongoose");
 
-
 const userSchema = new Schema({
   firstName: {
     type: String,
-    required: true
+    required: true,
   },
 
   lastName: {
     type: String,
-    required: true
+    required: true,
   },
-
 
   password: {
     type: String,
-    required: true
+    required: true,
   },
 
   phoneNumber: {
     type: Number,
-    required:true
+    required: true,
   },
 
   email: {
@@ -46,17 +44,15 @@ const userSchema = new Schema({
 
   orders: [
     {
-    type: Schema.Types.ObjectId,
-    ref: "Order"
-    }
+      type: Schema.Types.ObjectId,
+      ref: "Order",
+    },
   ],
-  
-  cart: 
-  {
-  type: Schema.Types.ObjectId,
-  ref: "Cart"
-  }
-  ,
+
+  cart: {
+    type: Schema.Types.ObjectId,
+    ref: "Cart",
+  },
 
   imageUrl: {
     type:String,
@@ -67,7 +63,7 @@ const userSchema = new Schema({
 
   isFarmer: {
     type: Boolean,
-    default: false
+    default: false,
   },
 
   resetPasswordToken: { type: String },
@@ -75,9 +71,8 @@ const userSchema = new Schema({
   updated: Date,
   created: {
     type: Date,
-    default: Date.now
-  }
-
+    default: Date.now,
+  },
 });
 
 const User = model("User", userSchema);

@@ -41,6 +41,13 @@ const userSchema = new Schema({
     type: String
   },
 
+  farmItems: [
+    {
+    type: Schema.Types.ObjectId,
+    ref:"Item",
+    },
+  ],
+
   orders: [
     {
       type: Schema.Types.ObjectId,

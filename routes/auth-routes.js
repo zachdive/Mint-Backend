@@ -12,6 +12,16 @@ const auth = require('../middleware/auth')
 const keys = require('../config/keys')
 const { secret, tokenLife } = keys.jwt;
 
+//List of users
+router.get("/users", async (req, res) => {
+  try{
+      const users = await User.find().populate("farmItems");
+      res.status(200).json(users);
+  } catch(e){
+      res.status(500).json({message: e.message});
+  }
+});
+
 
 
 //Signup
@@ -156,25 +166,25 @@ router.get(
 );
 
 
-// router.get(
-//   '/auth/google',
-//   passport.authenticate('google', {
-//     session: false,
-//     scope: ['profile', 'email'],
-//     accessType: 'offline',
-//     approvalPrompt: 'force'
-//   })
-// );
-
 router.get(
-  "/auth/google",
-  passport.authenticate("google", {
-    scope: [
-      "https://www.googleapis.com/auth/userinfo.profile",
-      "https://www.googleapis.com/auth/userinfo.email",
-    ],
+  '/auth/google',
+  passport.authenticate('google', {
+    session: false,
+    scope: ['profile', 'email'],
+    accessType: 'offline',
+    approvalPrompt: 'force'
   })
 );
+
+// router.get(
+//   "/auth/google",
+//   passport.authenticate("google", {
+//     scope: [
+//       "https://www.googleapis.com/auth/userinfo.profile",
+//       "https://www.googleapis.com/auth/userinfo.email",
+//     ],
+//   })
+// );
 
 router.get(
   "/auth/google/callback",

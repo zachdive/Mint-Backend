@@ -20,7 +20,7 @@ router.post("/products", async (req, res) => {
         return;
     }
     try {
-        const response = await Item.create({name, category, imageUrl, quantity_available, price, expire_in, description});
+        const response = await Item.create({user: req.session.currentUser._id, name, category, imageUrl, quantity_available, price, expire_in, description});
         res.status(200).json(response);
     } catch(e) {
         res.status(500).json({message: e.message});

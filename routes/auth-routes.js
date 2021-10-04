@@ -12,6 +12,16 @@ const auth = require('../middleware/auth')
 const keys = require('../config/keys')
 const { secret, tokenLife } = keys.jwt;
 
+//List of users
+router.get("/users", async (req, res) => {
+  try{
+      const items = await User.find();
+      res.status(200).json(items);
+  } catch(e){
+      res.status(500).json({message: e.message});
+  }
+});
+
 
 
 //Signup

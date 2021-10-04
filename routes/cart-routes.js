@@ -86,7 +86,7 @@ router.put("/cart/:id", async (req, res) => {
     console.log("user", user);
     console.log("item", item);
     if (!itemId) {
-      res.status(400).message({ message: "missing fields" });
+      res.status(400).json({ message: "missing fields" });
       return;
     }
     const response = await Cart.findByIdAndUpdate(

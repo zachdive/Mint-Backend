@@ -1,29 +1,26 @@
 const { Schema, model } = require("mongoose");
 
-
 const userSchema = new Schema({
   firstName: {
     type: String,
-    required: true
+    required: true,
   },
 
   lastName: {
     type: String,
-    required: true
+    required: true,
   },
-
 
   password: {
     type: String,
-    required: true
+    required: true,
   },
 
   phoneNumber: {
     type: Number,
-    required:true
   },
 
-  email: {
+  username: { //is actually email
     type: String,
     unique: true,
     // required: () => {
@@ -31,32 +28,30 @@ const userSchema = new Schema({
     // }
   },
 
-  // provider: {
-  //   type: String,
-  //   required: true,
-  //   default: 'email'
-  // },
+  provider: {
+    type: String,
+    required: true,
+    default: 'email'
+  },
 
-  // googleId: {
-  //   type: String
-  // },
-  // facebookId: {
-  //   type: String
-  // },
+  googleId: {
+    type: String
+  },
+  facebookId: {
+    type: String
+  },
 
   orders: [
     {
-    type: Schema.Types.ObjectId,
-    ref: "Order"
-    }
+      type: Schema.Types.ObjectId,
+      ref: "Order",
+    },
   ],
-  
-  cart: 
-  {
-  type: Schema.Types.ObjectId,
-  ref: "Cart"
-  }
-  ,
+
+  cart: {
+    type: Schema.Types.ObjectId,
+    ref: "Cart",
+  },
 
   imageUrl: {
     type:String,
@@ -67,7 +62,7 @@ const userSchema = new Schema({
 
   isFarmer: {
     type: Boolean,
-    default: false
+    default: false,
   },
 
   resetPasswordToken: { type: String },
@@ -75,9 +70,8 @@ const userSchema = new Schema({
   updated: Date,
   created: {
     type: Date,
-    default: Date.now
-  }
-
+    default: Date.now,
+  },
 });
 
 const User = model("User", userSchema);

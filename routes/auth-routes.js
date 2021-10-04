@@ -156,25 +156,25 @@ router.get(
 );
 
 
-// router.get(
-//   '/auth/google',
-//   passport.authenticate('google', {
-//     session: false,
-//     scope: ['profile', 'email'],
-//     accessType: 'offline',
-//     approvalPrompt: 'force'
-//   })
-// );
-
 router.get(
-  "/auth/google",
-  passport.authenticate("google", {
-    scope: [
-      "https://www.googleapis.com/auth/userinfo.profile",
-      "https://www.googleapis.com/auth/userinfo.email",
-    ],
+  '/auth/google',
+  passport.authenticate('google', {
+    session: false,
+    scope: ['profile', 'email'],
+    accessType: 'offline',
+    approvalPrompt: 'force'
   })
 );
+
+// router.get(
+//   "/auth/google",
+//   passport.authenticate("google", {
+//     scope: [
+//       "https://www.googleapis.com/auth/userinfo.profile",
+//       "https://www.googleapis.com/auth/userinfo.email",
+//     ],
+//   })
+// );
 
 router.get(
   "/auth/google/callback",

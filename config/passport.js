@@ -188,13 +188,22 @@ passport.use(
             return;
           }
 
+          const name = profile.displayName.split(' ');
+
           User.create({
+            // googleId: profile.id,
+            // username: profile.emails ? profile.emails[0].value : null,
+            // firstName: profile.name.givenName,
+            // lastName: "google",
+            // imageUrl: profile.photos[0].value,
+            // password: "gooogle"
+            provider: 'google',
             googleId: profile.id,
-            email: profile.emails ? profile.emails[0].value : null,
-            firstName: profile.name.givenName,
-            lastName: "google",
-            imageUrl: profile.photos[0].value,
-            password: "gooogle"
+            username: profile.email,
+            firstName: name[0],
+            lastName: name[1],
+            imageUrl:  profile.photos[0].value,
+            password: "pass"
             
           })
             .then((newUser) => {

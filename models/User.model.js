@@ -18,10 +18,9 @@ const userSchema = new Schema({
 
   phoneNumber: {
     type: Number,
-    required: true,
   },
 
-  email: {
+  username: { //is actually email
     type: String,
     unique: true,
     // required: () => {
@@ -29,18 +28,18 @@ const userSchema = new Schema({
     // }
   },
 
-  // provider: {
-  //   type: String,
-  //   required: true,
-  //   default: 'email'
-  // },
+  provider: {
+    type: String,
+    required: true,
+    default: 'email'
+  },
 
-  // googleId: {
-  //   type: String
-  // },
-  // facebookId: {
-  //   type: String
-  // },
+  googleId: {
+    type: String
+  },
+  facebookId: {
+    type: String
+  },
 
   orders: [
     {

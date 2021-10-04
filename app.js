@@ -32,6 +32,12 @@ app.use(
   })
 );
 
+//Keys and JWt
+
+const keys = require('./config/keys');
+const { database, port } = keys;
+const path = require('path');
+
 //GOOGLE LOGIN
 require("./config/passport");
 const passport = require("passport");

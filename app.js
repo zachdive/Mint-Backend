@@ -32,6 +32,15 @@ app.use(
   })
 );
 
+//GOOGLE LOGIN
+require("./config/passport");
+const passport = require("passport");
+
+//Initializes passport
+app.use(passport.initialize());
+//Initializes passport session
+app.use(passport.session());
+
 // default value for title local
 const projectName = "FinalProject";
 const capitalized = (string) => string[0].toUpperCase() + string.slice(1).toLowerCase();

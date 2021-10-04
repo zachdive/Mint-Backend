@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Item = require("../models/Item.model");
+const User = require("../models/User.model");
 const fileUpload = require('../config/cloudinary');
 
 
@@ -20,7 +21,12 @@ router.post("/products", async (req, res) => {
         return;
     }
     try {
-        const response = await Item.create({user: req.session.currentUser._id, name, category, imageUrl, quantity_available, price, expire_in, description});
+        const response = await Item.create({user: req.user, name, category, imageUrl, quantity_available, price, expire_in, description});
+        await User.findByIdAndUpdate(req.user._id, {
+            $push: {
+              farmItems: response,
+            },
+        });
         res.status(200).json(response);
     } catch(e) {
         res.status(500).json({message: e.message});

@@ -72,6 +72,10 @@ const userSchema = new Schema({
     default: false,
   },
 
+  farmerAdress: String,
+  city: String,
+  zipCode: String,
+
   resetPasswordToken: { type: String },
   resetPasswordExpires: { type: Date },
   updated: Date,

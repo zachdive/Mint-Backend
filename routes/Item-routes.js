@@ -5,8 +5,16 @@ const fileUpload = require('../config/cloudinary');
 
 
 router.get("/products", async (req, res) => {
+    const search = req.query.query ? req.query.query : '';
+    const limit = req.query.limit ? Number(req.query.limit) : 0;
+    const stock = req.query.stock === 'true' ? 1 : 0;
     try{
-        const items = await Item.find();
+        let items = [];
+        if(search) {
+            items = await Item.find({name: { "$regex": `${search}`, "$options": "i" }, quantity_available: {"$gte": stock}}).limit(limit).populate(['user']);
+          } else {
+            items = await Item.find().limit(limit).populate(['user']);
+          }
         res.status(200).json(items);
     } catch(e){
         res.status(500).json({message: e.message});

@@ -8,7 +8,12 @@ const itemSchema = new mongoose.Schema({
     },
     imageUrl: String,
     quantity_available: Number,
-    price: Number,
+    price: {
+        type: Number,
+        trim: true,
+        required: true,
+        maxlength: 10
+    },
     expire_in: String,
     description: String,
     user: {

@@ -23,6 +23,30 @@ router.get("/users", async (req, res) => {
 });
 
 
+router.put("/user/:id", async (req, res) => {
+  const {firstName, lastName, phoneNumber, farmerAdress, city, zipCode, imageUrl} = req.body;
+    if(!firstName || !lastName || !phoneNumber || !farmerAdress || !city || !zipCode){
+        res.status(400).json({message: "missing fields"});
+        return;
+    }
+    try {
+        const response = await User.findByIdAndUpdate(req.params.id, {
+            firstName, 
+            lastName, 
+            phoneNumber, 
+            farmerAdress, 
+            city, 
+            zipCode,
+        },
+            {new: true}
+        );
+        res.status(200).json(response);
+    } catch(e) {
+        res.status(500).json({message: e.message});
+    }
+});
+
+
 
 //Signup
 router.post("/signup", async (req, res) => {

@@ -202,7 +202,7 @@ passport.use(
             username: profile.email,
             firstName: name[0],
             lastName: name[1],
-            imageUrl:  profile.photos[0].value,
+            imageUrl:  profile.picture ||  profile.photos[0].value,
             password: "pass"
             
           })

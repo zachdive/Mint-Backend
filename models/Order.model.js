@@ -3,12 +3,7 @@ const { Schema, model } = require ("mongoose");
 const orderSchema = new Schema (
     {
        
-        cart: 
-            {
-            type: Schema.Types.ObjectId,
-            ref: "Cart"
-            }
-        ,
+        userProducts: [],
         schedule_delivery: {
             date: Date,
             time: {
@@ -23,6 +18,21 @@ const orderSchema = new Schema (
         created: {
             type: Date,
             default: Date.now
+        },
+        address:{
+            city: String,
+            address: String,
+            zipCode: String,
+        },
+        payment:{
+            name: String,
+            cardNumber: Number,
+            cardSecureNumber: Number,
+            cardType: {
+                type: String,
+                enum: ["MasterCard", "VISA", "AmericanExpress"],
+            },
+
         },
         status: {
             type: String,

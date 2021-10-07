@@ -22,7 +22,15 @@ router.put("/orders", async (req, res) => {
     try{
       
         console.log(req.user)
-        const user = await User.findById(req.user._id);
+        const user = await User.findById(req.user._id).populate({
+            path: "cart",
+            populate: {
+              path: "products.item",
+              model: "Item",
+            },
+          });
+        
+        // const productsArray = user.cart.products.forEach((product) =>)
         const order = await Order.create({ userProducts, schedule_delivery, total, address, payment });
         
         let response;
@@ -31,11 +39,13 @@ router.put("/orders", async (req, res) => {
         
         if(user.order){
             await Cart.findByIdAndDelete(user.cart._id);
-            response = await User.findByIdAndUpdate(req.user._id, {orders: order}, {new: true});
+            await User.findByIdAndUpdate(req.user._id, {$unset: { cart: 1 }});
+            response = await User.findByIdAndUpdate(req.user._id, {orders: order, cart: undefined}, {new: true});
             // response = delete newUser.cart;
             // await User.findByIdAndUpdate(req.user._id, response);
         }else{
             await Cart.findByIdAndDelete(user.cart._id);
+            await User.findByIdAndUpdate(req.user._id, {$unset: { cart: 1 }});
             response = await User.findByIdAndUpdate(req.user._id, {$push:{orders: order}}, {new: true});
         }
         res.status(200).json(response);

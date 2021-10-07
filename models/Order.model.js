@@ -3,7 +3,21 @@ const { Schema, model } = require ("mongoose");
 const orderSchema = new Schema (
     {
        
-        userProducts: [],
+        userProducts: [{
+            item:{
+                type: Schema.Types.ObjectId,
+                ref:"Item"
+            },            
+            quantity: {
+                type: Number,
+                default: 0
+            }
+            ,
+            purchasePrice: {
+                type: Number,
+                default: 0
+            },
+        }],
         schedule_delivery: {
             date: Date,
             time: {

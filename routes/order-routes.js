@@ -4,8 +4,17 @@ const Order = require("../models/Order.model");
 const User = require("../models/User.model");
 
 router.get("/orders", async (req, res) => {
-    try {const orders = await Order.find();
-        res.status(200).json(orders);
+    try {
+        console.log("current user")
+        const user = await User.findById(req.user._id).populate({
+            path: "orders",
+            populate: {
+              path: "userProducts.item",
+              model: "Item",
+            },
+          });
+          console.log("current user", user)
+        res.status(200).json(user);
     } catch(e) {
         res.status(500).json({message: e.message});
     }
@@ -32,6 +41,7 @@ router.put("/orders", async (req, res) => {
         
         // const productsArray = user.cart.products.forEach((product) =>)
         const order = await Order.create({ userProducts, schedule_delivery, total, address, payment });
+        
         
         let response;
 

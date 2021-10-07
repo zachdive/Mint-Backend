@@ -116,7 +116,7 @@ router.delete("/products/:id", async (req, res) => {
 
 router.get("/products/:id", async (req, res) => {
     try {
-        const item = await Item.findById(req.params.id);
+        const item = await Item.findById(req.params.id).populate("user");
         res.status(200).json(item);
     } catch(e) {
         res.status(500).json({message: e.message});

@@ -1,24 +1,63 @@
 const router = require("express").Router();
+const Cart = require("../models/Cart.model");
 const Order = require("../models/Order.model");
+const User = require("../models/User.model");
 
 router.get("/orders", async (req, res) => {
-    try {const orders = await Order.find();
-        res.status(200).json(orders);
+    try {
+        console.log("current user")
+        const user = await User.findById(req.user._id).populate({
+            path: "orders",
+            populate: {
+              path: "userProducts.item",
+              model: "Item",
+            },
+          });
+          console.log("current user", user)
+        res.status(200).json(user);
     } catch(e) {
         res.status(500).json({message: e.message});
     }
 });
 
-router.post("/orders", async (req, res) => {
-    const { cart, schedule_delivery, total, status} = req.body;
+router.put("/orders", async (req, res) => {
+    const { userProducts, schedule_delivery, total, address, payment } = req.body;
 
-    if(!cart || !schedule_delivery || !total || !status) {
-        res.status(400).message({message: "missing fields"});
+    if(!userProducts || !schedule_delivery || !total || !address || !payment) {
+        res.status(400).json({message: "missing fields"});
         return;
     }
     
     try{
-        const response = await Order.create({cart, schedule_delivery, total, status});
+      
+        console.log(req.user)
+        const user = await User.findById(req.user._id).populate({
+            path: "cart",
+            populate: {
+              path: "products.item",
+              model: "Item",
+            },
+          });
+        
+        // const productsArray = user.cart.products.forEach((product) =>)
+        const order = await Order.create({ userProducts, schedule_delivery, total, address, payment });
+        
+        
+        let response;
+
+        
+        
+        if(user.order){
+            await Cart.findByIdAndDelete(user.cart._id);
+            await User.findByIdAndUpdate(req.user._id, {$unset: { cart: 1 }});
+            response = await User.findByIdAndUpdate(req.user._id, {orders: order, cart: undefined}, {new: true});
+            // response = delete newUser.cart;
+            // await User.findByIdAndUpdate(req.user._id, response);
+        }else{
+            await Cart.findByIdAndDelete(user.cart._id);
+            await User.findByIdAndUpdate(req.user._id, {$unset: { cart: 1 }});
+            response = await User.findByIdAndUpdate(req.user._id, {$push:{orders: order}}, {new: true});
+        }
         res.status(200).json(response);
     } catch(e) {
         res.status(500).json({message: e.message});

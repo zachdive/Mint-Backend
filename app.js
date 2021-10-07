@@ -24,9 +24,10 @@ app.use(
   session({
     secret: process.env.SESSION_SECRET,
     cookie: {
-      sameSite: true, //both fe and be are running on the same hostname
-      httpOnly: true, //we are not using https
-      maxAge: 1200000, //session time
+      sameSite: 'none', //both fe and be are running on the same hostname
+      httpOnly: false, //we are not using https
+      maxAge: 1200000,
+      secure: true, //session time
     },
     rolling: true,
   })
@@ -65,6 +66,9 @@ app.use("/", auth);
 
 const cart = require("./routes/cart-routes")
 app.use("/", cart);
+
+const order = require("./routes/order-routes")
+app.use("/", order);
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);

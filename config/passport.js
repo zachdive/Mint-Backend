@@ -192,14 +192,14 @@ passport.use(
 
           User.create({
             // googleId: profile.id,
-            // username: profile.emails ? profile.emails[0].value : null,
+            // username: profile.emails ? profile.emails[0].value : null,    or profile.email
             // firstName: profile.name.givenName,
             // lastName: "google",
             // imageUrl: profile.photos[0].value,
             // password: "gooogle"
             provider: 'google',
             googleId: profile.id,
-            username: profile.email,
+            username: profile.emails,
             firstName: name[0],
             lastName: name[1],
             imageUrl:  profile.picture ||  profile.photos[0].value,

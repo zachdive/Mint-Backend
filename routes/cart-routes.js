@@ -26,7 +26,7 @@ router.post("/cart", async (req, res) => {
     }
 
     let response;
-
+    let updatedUser = {};
     if (user.cart) {
     } else {
       response = await Cart.create({
@@ -39,12 +39,12 @@ router.post("/cart", async (req, res) => {
         ],
       });
 
-      await User.findByIdAndUpdate(req.user._id, {
+      updatedUser = await User.findByIdAndUpdate(req.user._id, {
         cart: response,
-      });
+      }, {new:true});
     }
 
-    res.status(200).json(response);
+    res.status(200).json(updatedUser);
   } catch (e) {
     res.status(500).json({ message: e.message });
   }
@@ -82,19 +82,19 @@ router.put("/cart/:id", async (req, res) => {
     const { itemId, quantity, purchasePrice } = req.body;
     const user = await User.findById(req.user._id);
     const item = await Item.findById(itemId);
-    console.log("user", user);
+    console.log("user with cart", user);
     console.log("item", item);
     if (!itemId) {
       res.status(400).json({ message: "missing fields" });
       return;
     }
-    const response = await Cart.findByIdAndUpdate(
+    await Cart.findByIdAndUpdate(
       user.cart._id,
       { $push: { products: { item, quantity, purchasePrice } } },
       { new: true } //<= responding with new (updated) object
     )
 
-    res.status(200).json(response);
+    res.status(200).json(user);
   } catch (e) {
     res.status(500).json({ message: e.message });
   }

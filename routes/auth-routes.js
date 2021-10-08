@@ -37,6 +37,7 @@ router.put("/user/:id", async (req, res) => {
             farmerAdress, 
             city, 
             zipCode,
+            imageUrl,
         },
             {new: true}
         );
@@ -52,7 +53,7 @@ router.put("/user/:id", async (req, res) => {
 router.post("/signup", async (req, res) => {
 
   try {
-  const { firstName, lastName,  password, phoneNumber, username, isFarmer } = req.body;
+  const { firstName, lastName,  password, phoneNumber, username, isFarmer, zipCode, city, farmerAdress, imageUrl } = req.body;
   if (username === "" || password === "") {
     res.status(400).json({ errorMessage: "Fill email and password" });
     return;
@@ -88,6 +89,10 @@ router.post("/signup", async (req, res) => {
     phoneNumber,
     username,
     isFarmer,
+    zipCode,
+    city,
+    farmerAdress,
+    imageUrl,
   });
 
   

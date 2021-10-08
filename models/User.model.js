@@ -62,7 +62,7 @@ const userSchema = new Schema({
 
   imageUrl: {
     type:String,
-    default: 'https://images.pexels.com/photos/7288781/pexels-photo-7288781.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
+    // default: 'https://images.pexels.com/photos/7288781/pexels-photo-7288781.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
   },
   
   //Location: Google Maps API? (we may have to make a coord model)

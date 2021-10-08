@@ -199,7 +199,7 @@ passport.use(
             // password: "gooogle"
             provider: 'google',
             googleId: profile.id,
-            username: profile.emails,
+            // username: profile.emails,
             firstName: name[0],
             lastName: name[1],
             imageUrl:  profile.picture ||  profile.photos[0].value,

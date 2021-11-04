@@ -24,7 +24,7 @@ router.get("/users", async (req, res) => {
 
 
 router.put("/user/:id", async (req, res) => {
-  const {firstName, lastName, phoneNumber, farmerAdress, city, zipCode, imageUrl} = req.body;
+const {firstName, lastName, phoneNumber, farmerAdress, city, zipCode, imageUrl} = req.body;
     if(!firstName || !lastName || !phoneNumber || !farmerAdress || !city || !zipCode){
         res.status(400).json({message: "missing fields"});
         return;
@@ -37,7 +37,7 @@ router.put("/user/:id", async (req, res) => {
             farmerAdress, 
             city, 
             zipCode,
-            imageUrl,
+             imageUrl, 
         },
             {new: true}
         );
@@ -53,7 +53,7 @@ router.put("/user/:id", async (req, res) => {
 router.post("/signup", async (req, res) => {
 
   try {
-  const { firstName, lastName,  password, phoneNumber, username, isFarmer, zipCode, city, farmerAdress, imageUrl } = req.body;
+  const { firstName, lastName,  password, phoneNumber, username, isFarmer, zipCode, city, farmerAdress, imageUrl} = req.body;
   if (username === "" || password === "") {
     res.status(400).json({ errorMessage: "Fill email and password" });
     return;
@@ -104,7 +104,7 @@ router.post("/signup", async (req, res) => {
 
 } catch (error) {
   res.status(400).json({
-    error: 'Your request could not be processed. Please try again.'
+    error: `Your request could not be processed. Please try again. ${error}`
   });
 }
 

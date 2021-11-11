@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const passport = require('passport');
+const fileUpload = require('../config/cloudinary');
 
 //Models, Middlewares & Helpers
 const User = require("../models/User.model");
@@ -25,10 +26,10 @@ router.get("/users", async (req, res) => {
 
 router.put("/user/:id", async (req, res) => {
 const {firstName, lastName, phoneNumber, farmerAdress, city, zipCode, imageUrl} = req.body;
-    if(!firstName || !lastName || !phoneNumber || !farmerAdress || !city || !zipCode){
-        res.status(400).json({message: "missing fields"});
-        return;
-    }
+    // if(!firstName || !lastName || !phoneNumber || !farmerAdress || !city || !zipCode){
+    //     res.status(400).json({message: "missing fields"});
+    //     return;
+    // }
     try {
         const response = await User.findByIdAndUpdate(req.params.id, {
             firstName, 
@@ -37,7 +38,7 @@ const {firstName, lastName, phoneNumber, farmerAdress, city, zipCode, imageUrl} 
             farmerAdress, 
             city, 
             zipCode,
-             imageUrl, 
+            imageUrl, 
         },
             {new: true}
         );
